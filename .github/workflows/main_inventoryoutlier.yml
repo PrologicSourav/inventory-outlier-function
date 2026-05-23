@@ -60,14 +60,10 @@ jobs:
 
       - name: Zip artifact for deployment
         run: |
-          mkdir deployment
-          cp -r .python_packages deployment/
-          cp function_app.py deployment/
-          cp host.json deployment/
-          cp requirements.txt deployment/
-          cd deployment
-          zip -r ../release.zip .
-
+          zip -r release.zip . \
+            -x ".git/*" \
+            -x "__pycache__/*"
+            
       - name: Verify ZIP contents
         run: |
           unzip -l release.zip | grep numpy
