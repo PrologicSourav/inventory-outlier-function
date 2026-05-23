@@ -71,6 +71,11 @@ jobs:
           cp requirements.txt deployment/
           cd deployment
           zip -r ../release.zip .
+
+      - name: Verify ZIP contents
+        run: |
+          unzip -l release.zip | grep numpy
+          unzip -l release.zip | grep ".python_packages"
         
       - name: Login to Azure
         uses: azure/login@v2
